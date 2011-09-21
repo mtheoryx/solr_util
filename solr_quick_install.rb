@@ -37,7 +37,7 @@ class Solr_quick_install
       puts "Having trouble launching the solr app."
       exit
     end
-    
+    exit
   end
   
 private
@@ -133,12 +133,12 @@ private
   def run_solr
     Dir.chdir(@solr_app_dir + '/example')
     puts 'Starting solr example app... CTRL-C to quit'
-    
+    task_list = ["java -jar start.jar", "open http://localhost:8983/solr/admin/"]
     begin
-      
       spawn 'java -jar start.jar'
-      spawn 'open http://localhost:8983/solr/admin/'
+      sleep 3; spawn 'open http://localhost:8983/solr/admin/'
       Process.waitall
+      return true
     rescue
       return false
     end
